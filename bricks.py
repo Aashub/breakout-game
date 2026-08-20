@@ -1,7 +1,6 @@
 from turtle import Turtle
 
 
-
 class Bricks:
 
     def __init__(self):
