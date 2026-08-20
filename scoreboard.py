@@ -4,7 +4,7 @@ from turtle import  Turtle
 
 HORIZONTAL_LINE_AXIS = (-460,300)
 
-class Score():
+class Score:
 
     def __init__(self):
 

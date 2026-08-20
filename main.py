@@ -2,6 +2,7 @@
 from turtle import Screen
 from paddle import Paddle
 from scoreboard import Score
+from bricks import Bricks
 
 # create_screen
 screen_object = Screen()
@@ -10,13 +11,18 @@ screen_object.tracer(0)
 # create paddle
 paddle_object = Paddle()
 
+# create bricks
+bricks = Bricks()
+bricks.create_bricks()
+
+
 # create scoreboard
 score = Score()
 score.draw_horizontal_line()
 
 # create black screen and setup screen size
 screen_object.bgcolor("black")
-screen_object.setup(width=900, height=700)
+screen_object.setup(width=910, height=700)
 
 #  key binding for left and right paddle movement
 screen_object.listen()
