@@ -4,7 +4,9 @@ from paddle import Paddle
 from scoreboard import Score
 from bricks import Bricks
 from ball import Ball
+import random
 
+BALL_HEADING = random.randint(210, 330)
 
 
 # create_screen
@@ -14,7 +16,7 @@ screen_object.tracer(0)
 # create paddle
 paddle_object = Paddle()
 
-# create bricks
+# create bricksx
 bricks = Bricks()
 bricks.create_bricks()
 
@@ -23,7 +25,7 @@ score = Score()
 score.draw_horizontal_line()
 
 # create ball
-ball = Ball()
+ball_object = Ball()
 
 
 # create black screen and setup screen size
@@ -39,9 +41,17 @@ is_game_on = True
 
 
 while is_game_on:
-    ball.ball_movement()
+
+    ball_x_cor, ball_y_cor = ball_object.ball_movement(BALL_HEADING)
+
+    if ball_y_cor >= paddle_object.paddle.ycor() and ball_object.ball.distance(paddle_object.paddle) < 20 and not ball_object.ball_hit:
+        # if ball y_cor is greater than paddle y_cor and ball & paddle distance is less than 40 and ball not hit than this method will give us new direction
+
+        new_heading = ball_object.on_ball_collision_with_paddle(BALL_HEADING)
+        BALL_HEADING = new_heading
+        ball_object.ball_hit = True
+
 
     screen_object.update()
-
 
 screen_object.exitonclick()
