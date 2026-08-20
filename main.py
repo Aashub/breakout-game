@@ -1,7 +1,7 @@
 # all required classes
 from turtle import Screen
 from paddle import Paddle
-
+from scoreboard import Score
 
 # create_screen
 screen_object = Screen()
@@ -9,6 +9,10 @@ screen_object.tracer(0)
 
 # create paddle
 paddle_object = Paddle()
+
+# create scoreboard
+score = Score()
+score.draw_horizontal_line()
 
 # create black screen and setup screen size
 screen_object.bgcolor("black")
