@@ -5,10 +5,8 @@ class Paddle:
 
     def __init__(self):
 
-        self.paddle_list = []
+        self.paddle = Turtle("square")
         self.create_paddle()
-        self.paddle = self.paddle_list[0]
-
 
         self.paddle_xcor = self.paddle.xcor()
 
@@ -16,16 +14,12 @@ class Paddle:
     def create_paddle(self):
         """this method will set paddle details and also create a paddle"""
 
-        for each_iterate in range(0, 1):
 
-            paddle = Turtle("square")
-            paddle.penup()
-            paddle.shapesize(stretch_wid=1, stretch_len=6)
-            paddle.color("white")
-            paddle.setheading(180)
-            self.paddle_list.append(paddle)
-
-        self.paddle_list[0].goto(0,-325)
+        self.paddle.penup()
+        self.paddle.shapesize(stretch_wid=6, stretch_len=1)
+        self.paddle.color("white")
+        self.paddle.setheading(90)
+        self.paddle.goto(0,-325)
 
 
     def paddle_right_movement(self):
@@ -34,8 +28,7 @@ class Paddle:
         if self.paddle.xcor() > 360:
             return
 
-
-        self.paddle.forward(-MOVE_DISTANCE)
+        self.paddle.setx(self.paddle.xcor() + MOVE_DISTANCE)
 
 
 
@@ -45,5 +38,5 @@ class Paddle:
         if self.paddle.xcor() < -360:
             return
 
-        self.paddle.forward(MOVE_DISTANCE)
+        self.paddle.setx(self.paddle.xcor() - MOVE_DISTANCE)
 

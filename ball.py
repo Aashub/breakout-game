@@ -1,5 +1,5 @@
 from turtle import Turtle
-import random
+
 
 
 class Ball:
@@ -16,6 +16,7 @@ class Ball:
 
     def ball_movement(self, ball_direction):
         """this method will set ball heading & make ball move forward at certain speed and give x y cord of ball"""
+
 
         self.ball.setheading(ball_direction)
         self.ball.forward(self.ball_speed)
@@ -38,4 +39,7 @@ class Ball:
         new_heading = 360 - ball_direction
         return new_heading
 
+    def on_ball_collision_with_wall(self, ball_direction):
 
+        new_heading = 380 + ball_direction
+        return new_heading
