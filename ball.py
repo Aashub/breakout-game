@@ -41,5 +41,5 @@ class Ball:
 
     def on_ball_collision_with_wall(self, ball_direction):
 
-        new_heading = 380 + ball_direction
+        new_heading = (180 - ball_direction) % 360
         return new_heading
