@@ -29,7 +29,6 @@ class Ball:
     def on_ball_collision_with_paddle(self, ball_direction):
         """this method will help is change the ball direction after hitting paddle"""
 
-
         # here are also increasing ball speed.
         if not self.ball_hit:
             self.ball_speed += 0.05
@@ -39,7 +38,12 @@ class Ball:
         new_heading = 360 - ball_direction
         return new_heading
 
-    def on_ball_collision_with_wall(self, ball_direction):
+    def on_ball_collision_with_side_wall(self, ball_direction):
 
         new_heading = (180 - ball_direction) % 360
+        return new_heading
+
+    def on_ball_collision_with_top_wall(self, ball_direction):
+
+        new_heading = 360 - ball_direction
         return new_heading
