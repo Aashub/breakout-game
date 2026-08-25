@@ -1,4 +1,5 @@
 # all required classes
+import time
 from turtle import Screen
 from paddle import Paddle
 from scoreboard import Score
@@ -50,28 +51,25 @@ while is_game_on:
 
         new_heading = ball_object.on_ball_collision_with_top_wall(BALL_HEADING)
         BALL_HEADING = new_heading
-
+        ball_object.ball_hit = False
 
     if ball_x_cor >= 458 or ball_x_cor <= -430:
         # if ball x cor is greater than those value than this method will get called and give us new heading after colliding with left & right side of wall.
 
         new_heading = ball_object.on_ball_collision_with_side_wall(BALL_HEADING)
         BALL_HEADING = new_heading
+        ball_object.ball_hit = False
 
-
-    if ball_y_cor <= paddle_y_cor and ball_x_cor <= paddle_x_cor:
+    if ball_y_cor <= paddle_y_cor and ball_object.ball.distance(paddle_object.paddle) < 40 and  ball_object.ball_hit == False:
         # if ball y_cor is greater than paddle y_cor and ball & paddle distance is less than 40 and ball not hit than this method will give us new direction
 
         new_heading = ball_object.on_ball_collision_with_paddle(BALL_HEADING)
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
-    elif ball_y_cor <= paddle_y_cor and ball_x_cor >= paddle_x_cor:
-        # if ball y_cor is greater than paddle y_cor and ball & paddle distance is less than 40 and ball not hit than this method will give us new direction
 
-        new_heading = ball_object.on_ball_collision_with_paddle(BALL_HEADING)
-        BALL_HEADING = new_heading
-        ball_object.ball_hit = True
+
+
 
 
     screen_object.update()
