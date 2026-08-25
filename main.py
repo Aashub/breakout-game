@@ -50,6 +50,8 @@ while is_game_on:
         # if ball y cor is greater than 290 value than this method will get called and give us new heading after colliding with upper wall.
 
         new_heading = ball_object.on_ball_collision_with_top_wall(BALL_HEADING)
+        print(new_heading)
+
         BALL_HEADING = new_heading
         ball_object.ball_hit = False
 
@@ -67,8 +69,16 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
+    for index, brick in enumerate(bricks.brick_list):
 
 
+        if ball_object.ball.distance(brick) < 30 and ball_x_cor >= brick.xcor() + 10:
+
+            new_heading = ball_object.on_ball_collision_with_bricks(BALL_HEADING)
+            brick.hideturtle()
+            BALL_HEADING = new_heading
+            ball_object.ball_hit = False
+            break
 
 
 

@@ -47,3 +47,9 @@ class Ball:
 
         new_heading = 360 - ball_direction
         return new_heading
+
+
+    def on_ball_collision_with_bricks(self, ball_direction):
+
+        new_heading = 360 - ball_direction
+        return new_heading
