@@ -7,8 +7,10 @@ from bricks import Bricks
 from ball import Ball
 import random
 
-BALL_HEADING = random.randint(210, 330)
-
+# BALL_HEADING = random.randint(210, 330)
+BALL_HEADING = 291
+BALL_WIDTH, BALL_HEIGHT = 1, 1
+BALL_DIAMETER = (BALL_WIDTH * 20) + (BALL_HEIGHT * 20)
 
 # create_screen
 screen_object = Screen()
@@ -26,7 +28,7 @@ score = Score()
 score.draw_horizontal_line()
 
 # create ball
-ball_object = Ball()
+ball_object = Ball(BALL_WIDTH, BALL_HEIGHT)
 
 
 # create black screen and setup screen size
@@ -50,7 +52,6 @@ while is_game_on:
         # if ball y cor is greater than 290 value than this method will get called and give us new heading after colliding with upper wall.
 
         new_heading = ball_object.on_ball_collision_with_top_wall(BALL_HEADING)
-        print(new_heading)
 
         BALL_HEADING = new_heading
         ball_object.ball_hit = False
@@ -71,15 +72,18 @@ while is_game_on:
 
     for index, brick in enumerate(bricks.brick_list):
 
+        brick_collision_side = bricks.check_brick_collision(ball_x_cor, ball_y_cor, brick, BALL_DIAMETER)
 
-        if ball_object.ball.distance(brick) < 30 and ball_x_cor >= brick.xcor() + 10:
-
+        if brick_collision_side == "lower_wall_collide" or brick_collision_side == "upper_wall_collide":
+            print(BALL_HEADING)
             new_heading = ball_object.on_ball_collision_with_bricks(BALL_HEADING)
-            brick.hideturtle()
             BALL_HEADING = new_heading
+            print(BALL_HEADING)
             ball_object.ball_hit = False
             break
 
+        else:
+            pass
 
 
     screen_object.update()

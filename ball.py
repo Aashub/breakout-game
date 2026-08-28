@@ -4,19 +4,19 @@ from turtle import Turtle
 
 class Ball:
 
-    def __init__(self):
+    def __init__(self, ball_width, ball_height):
 
         self.ball = Turtle("circle")
+        self.ball.setheading(90)
+        self.ball.shapesize(ball_width, ball_height)
         self.ball.penup()
         self.ball.color("white")
-
-        self.ball_speed = 0.9
+        self.ball_speed = 0.2
         self.ball_hit = False
 
 
     def ball_movement(self, ball_direction):
         """this method will set ball heading & make ball move forward at certain speed and give x y cord of ball"""
-
 
         self.ball.setheading(ball_direction)
         self.ball.forward(self.ball_speed)
