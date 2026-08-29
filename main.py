@@ -10,7 +10,8 @@ import random
 # BALL_HEADING = random.randint(210, 330)
 BALL_HEADING = 291
 BALL_WIDTH, BALL_HEIGHT = 1, 1
-BALL_DIAMETER = (BALL_WIDTH * 20) + (BALL_HEIGHT * 20)
+BALL_DIAMETER = (BALL_WIDTH * 10) + (BALL_HEIGHT * 10)
+
 
 # create_screen
 screen_object = Screen()
@@ -56,7 +57,7 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = False
 
-    if ball_x_cor >= 458 or ball_x_cor <= -430:
+    if ball_x_cor >= 440 or ball_x_cor <= -445:
         # if ball x cor is greater than those value than this method will get called and give us new heading after colliding with left & right side of wall.
 
         new_heading = ball_object.on_ball_collision_with_side_wall(BALL_HEADING)
@@ -70,15 +71,25 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
+
     for index, brick in enumerate(bricks.brick_list):
 
         brick_collision_side = bricks.check_brick_collision(ball_x_cor, ball_y_cor, brick, BALL_DIAMETER)
 
+
         if brick_collision_side == "lower_wall_collide" or brick_collision_side == "upper_wall_collide":
-            print(BALL_HEADING)
-            new_heading = ball_object.on_ball_collision_with_bricks(BALL_HEADING)
+
+            new_heading = ball_object.on_ball_collision_with_top_bottom_wall_of_bricks(BALL_HEADING)
             BALL_HEADING = new_heading
-            print(BALL_HEADING)
+            ball_object.ball_hit = False
+            break
+
+        elif brick_collision_side == "right_wall_collide":
+
+            new_heading = ball_object.on_ball_collision_with_brick_side_wall(BALL_HEADING)
+            BALL_HEADING = new_heading
+
+
             ball_object.ball_hit = False
             break
 

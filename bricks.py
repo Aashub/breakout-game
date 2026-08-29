@@ -53,19 +53,42 @@ class Bricks:
                 brick.color("yellow")
 
     def check_brick_collision(self, ball_x_cord, ball_y_cord, brick, ball_diameter):
+
         brick_left = brick.xcor() - self.brick_width / 2
         brick_right = brick.xcor() + self.brick_width / 2
         brick_bottom_cord = brick.ycor() - self.brick_height / 2
         brick_top_cord = brick.ycor() + self.brick_height / 2
         ball_radius = ball_diameter / 2
 
-        x_overlap = brick_left - ball_radius <= ball_x_cord <= brick_right + ball_radius
+        # is the ball even touching the brick at all? (loose box check)
+        touching_horizontally = brick_left - ball_radius <= ball_x_cord <= brick_right + ball_radius
+        touching_vertically = brick_bottom_cord - ball_radius <= ball_y_cord <= brick_top_cord + ball_radius
 
-        if (ball_y_cord + ball_radius - 9 >= brick_bottom_cord) and (ball_y_cord < brick_bottom_cord) and x_overlap:
+        if not (touching_horizontally and touching_vertically):
+            return None  # not touching the brick, nothing to do
+
+        # how far past each edge has the ball poked through?
+        # smaller number = ball is closer to that edge = that's the edge it hit
+        distance_past_left_edge = (ball_x_cord + ball_radius) - brick_left
+        distance_past_right_edge = brick_right - (ball_x_cord - ball_radius)
+        distance_past_bottom_edge = (ball_y_cord + ball_radius) - brick_bottom_cord
+        distance_past_top_edge = brick_top_cord - (ball_y_cord - ball_radius)
+
+        # whichever edge has the smallest distance is the one the ball actually hit
+        closest_edge = min(
+            distance_past_left_edge,
+            distance_past_right_edge,
+            distance_past_bottom_edge,
+            distance_past_top_edge
+        )
+
+        if closest_edge == distance_past_bottom_edge:
             return "lower_wall_collide"
-
-        elif (ball_y_cord - ball_radius + 10<= brick_top_cord) and (ball_y_cord > brick_top_cord) and x_overlap:
+        if closest_edge == distance_past_top_edge:
             return "upper_wall_collide"
+        if closest_edge == distance_past_left_edge:
+            return "left_wall_collide"
+        return "right_wall_collide"
 
-        return None
+
 

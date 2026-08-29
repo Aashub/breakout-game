@@ -21,7 +21,7 @@ class Ball:
         self.ball.setheading(ball_direction)
         self.ball.forward(self.ball_speed)
 
-        x_cor = round(self.ball.xcor(), 2) + 20
+        x_cor = round(self.ball.xcor(), 2)
         y_cor = round(self.ball.ycor(), 2)
 
         return x_cor, y_cor
@@ -49,7 +49,13 @@ class Ball:
         return new_heading
 
 
-    def on_ball_collision_with_bricks(self, ball_direction):
+    def on_ball_collision_with_top_bottom_wall_of_bricks(self, ball_direction):
 
         new_heading = 360 - ball_direction
         return new_heading
+
+    def on_ball_collision_with_brick_side_wall(self, ball_direction):
+
+        new_heading = (180 - ball_direction) % 360
+        return new_heading
+
