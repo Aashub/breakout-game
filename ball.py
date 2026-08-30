@@ -1,5 +1,5 @@
 from turtle import Turtle
-
+import random
 
 
 class Ball:
@@ -11,7 +11,7 @@ class Ball:
         self.ball.shapesize(ball_width, ball_height)
         self.ball.penup()
         self.ball.color("white")
-        self.ball_speed = 0.2
+        self.ball_speed = 1.5
         self.ball_hit = False
 
 
@@ -26,16 +26,17 @@ class Ball:
 
         return x_cor, y_cor
 
-    def on_ball_collision_with_paddle(self, ball_direction):
+    def on_ball_collision_with_paddle(self):
         """this method will help is change the ball direction after hitting paddle"""
+
+        ball_direction= random.randint(30, 150)
 
         # here are also increasing ball speed.
         if not self.ball_hit:
-            self.ball_speed += 0.05
+            self.ball_speed += 0.04
             self.ball_hit = True
 
-
-        new_heading = 360 - ball_direction
+        new_heading = (180 - ball_direction) % 360
         return new_heading
 
     def on_ball_collision_with_side_wall(self, ball_direction):

@@ -7,8 +7,7 @@ from bricks import Bricks
 from ball import Ball
 import random
 
-# BALL_HEADING = random.randint(210, 330)
-BALL_HEADING = 291
+BALL_HEADING = random.randint(210, 330)
 BALL_WIDTH, BALL_HEIGHT = 1, 1
 BALL_DIAMETER = (BALL_WIDTH * 10) + (BALL_HEIGHT * 10)
 
@@ -20,13 +19,17 @@ screen_object.tracer(0)
 # create paddle
 paddle_object = Paddle()
 
-# create bricks
-bricks = Bricks()
-bricks.create_bricks()
 
 # create scoreboard
 score = Score()
 score.draw_horizontal_line()
+score.user_life_UI()
+
+
+# create bricks
+bricks = Bricks()
+bricks.create_bricks()
+
 
 # create ball
 ball_object = Ball(BALL_WIDTH, BALL_HEIGHT)
@@ -64,38 +67,43 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = False
 
-    if ball_y_cor <= paddle_y_cor and ball_object.ball.distance(paddle_object.paddle) < 40 and  ball_object.ball_hit == False:
+    if ball_y_cor <= paddle_y_cor and ball_object.ball.distance(paddle_object.paddle) < 50 and  ball_object.ball_hit == False:
         # if ball y_cor is greater than paddle y_cor and ball & paddle distance is less than 40 and ball not hit than this method will give us new direction
 
-        new_heading = ball_object.on_ball_collision_with_paddle(BALL_HEADING)
+        new_heading = ball_object.on_ball_collision_with_paddle()
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
 
+    # this for loop will check that which brick is closest to the ball and as per that break that brick
     for index, brick in enumerate(bricks.brick_list):
 
+        # this method checks each brick and the brick which is closest to the ball it gives us on which side of brick wall it was the closest
         brick_collision_side = bricks.check_brick_collision(ball_x_cor, ball_y_cor, brick, BALL_DIAMETER)
 
 
+        # if upper and lower side of that brick is closest to the ball than this condition breaks the brick and change the ball direction
         if brick_collision_side == "lower_wall_collide" or brick_collision_side == "upper_wall_collide":
 
+            print(ball_object.ball_speed)
             new_heading = ball_object.on_ball_collision_with_top_bottom_wall_of_bricks(BALL_HEADING)
+            brick.goto(460, 400)
             BALL_HEADING = new_heading
             ball_object.ball_hit = False
             break
 
+        # if left and right side of that brick is closest to the ball than this condition breaks the brick and change the ball direction
         elif brick_collision_side == "right_wall_collide":
 
+            print(ball_object.ball_speed)
             new_heading = ball_object.on_ball_collision_with_brick_side_wall(BALL_HEADING)
             BALL_HEADING = new_heading
-
-
+            brick.goto(460, 400)
             ball_object.ball_hit = False
             break
 
         else:
             pass
-
 
     screen_object.update()
 

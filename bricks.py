@@ -14,7 +14,7 @@ class Bricks:
         """this method creates a bricks"""
 
         # this for loop create bricks assign each brick property and store each brick instance in a list for later use.
-        for each_iterate in range(0, 1):
+        for each_iterate in range(0, 100):
             bricks = Turtle("square")
             bricks.penup()
             bricks.shapesize(stretch_wid=BRICK_STRETCH_WIDTH, stretch_len=BRICK_STRETCH_LENGTH)
@@ -23,10 +23,9 @@ class Bricks:
             bricks.setheading(90)
             self.brick_list.append(bricks)
 
-        # x_cord = -425
-        # y_cord = 285
-        x_cord = 0
-        y_cord = 100
+        x_cord = -300
+        y_cord = 285
+
 
         # this for loop position each brick on a screen at their desired location with equal distance
         for brick in self.brick_list:
@@ -34,22 +33,22 @@ class Bricks:
             brick.goto(x_cord, y_cord)
             x_cord = x_cord + 65
 
-            if x_cord > 485:
-                x_cord = -425
+            if x_cord > 300:
+                x_cord = -300
                 y_cord = y_cord - 25
 
         # this for loop assign color to each brick as per the below each brick index division condition
         for index, brick in enumerate(self.brick_list):
 
-            if index / 3 < 10:
+            if index  < 20:
                 brick.color("red")
-            elif index / 3 < 20:
+            elif index  < 40:
                 brick.color("orange")
-            elif index / 3 < 30:
+            elif index  < 60:
                 brick.color("green")
-            elif index / 3 < 40:
+            elif index  < 80:
                 brick.color("aqua")
-            elif index / 3 < 50:
+            elif index  < 100:
                 brick.color("yellow")
 
     def check_brick_collision(self, ball_x_cord, ball_y_cord, brick, ball_diameter):

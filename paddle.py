@@ -1,5 +1,5 @@
 from turtle import Turtle
-MOVE_DISTANCE = 30
+MOVE_DISTANCE = 50
 
 class Paddle:
 
@@ -13,7 +13,6 @@ class Paddle:
 
     def create_paddle(self):
         """this method will set paddle details and also create a paddle"""
-
 
         self.paddle.penup()
         self.paddle.shapesize(stretch_wid=6, stretch_len=1)
