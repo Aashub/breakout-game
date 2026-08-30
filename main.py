@@ -74,6 +74,10 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
+    elif ball_y_cor <= paddle_y_cor:
+        score.decrease_user_life(ball_object.ball)
+
+
 
     # this for loop will check that which brick is closest to the ball and as per that break that brick
     for index, brick in enumerate(bricks.brick_list):
