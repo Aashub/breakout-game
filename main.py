@@ -80,7 +80,7 @@ while is_game_on:
 
     ball_x_cor, ball_y_cor = ball_object.ball_movement(BALL_HEADING)
 
-    if ball_y_cor > 290:
+    if ball_y_cor > 285:
         # if ball y cor is greater than 290 value than this method will get called and give us new heading after colliding with upper wall.
 
         new_heading = ball_object.on_ball_collision_with_top_wall(BALL_HEADING)

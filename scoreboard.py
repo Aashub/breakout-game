@@ -86,26 +86,14 @@ class Score:
 
         self.pen.color("white")
         self.pen.penup()
-        self.pen.goto(340, 315)
+        self.pen.goto(250, 315)
         self.pen.write(f"Highest Score: {CURRENT_SCORE}", align="center", font=("Arial", 13, "bold"))
         self.pen.hideturtle()
 
         self.pen.color("white")
         self.pen.penup()
-        self.pen.goto(170, 315)
-        self.pen.write(f"Highest Level: ", align="center", font=("Arial", 13, "bold"))
-        self.pen.hideturtle()
-
-        self.pen.color("white")
-        self.pen.penup()
-        self.pen.goto(-340, 315)
-        self.pen.write(f"Current Level: ", align="center", font=("Arial", 13, "bold"))
-        self.pen.hideturtle()
-
-        self.pen.color("white")
-        self.pen.penup()
-        self.pen.goto(-170, 315)
-        self.pen.write(f"Current Score ", align="center", font=("Arial", 13, "bold"))
+        self.pen.goto(-275, 315)
+        self.pen.write(f"Current Score: {CURRENT_SCORE}", align="center", font=("Arial", 13, "bold"))
         self.pen.hideturtle()
 
     def increase_current_score(self, score_value):
@@ -136,10 +124,13 @@ class Score:
 
         ball_obj.ball.goto(0, 0)
         ball_obj.ball.showturtle()
+        ball_obj.ball_speed = 1.5
+
 
         for brick, (xcor, ycor) in broke_brick_dict.items():
             brick.goto(xcor, ycor)
 
-
+        for life in self.life_list_list:
+            life.fillcolor("white")
 
 
