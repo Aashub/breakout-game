@@ -33,7 +33,7 @@ class Ball:
 
         # here are also increasing ball speed.
         if not self.ball_hit:
-            self.ball_speed += 0.04
+            self.ball_speed += 0.05
             self.ball_hit = True
 
         new_heading = (180 - ball_direction) % 360

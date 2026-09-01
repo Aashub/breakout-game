@@ -52,6 +52,11 @@ class Bricks:
                 brick.color("yellow")
 
     def check_brick_collision(self, ball_x_cord, ball_y_cord, brick, ball_diameter):
+        """this method is responsible for checking brick collision in each for side and whatever side of the brick which is close to a ball that brick get removed."""
+
+
+        brick_color = brick.fillcolor()
+
 
         brick_left = brick.xcor() - self.brick_width / 2
         brick_right = brick.xcor() + self.brick_width / 2
@@ -82,12 +87,14 @@ class Bricks:
         )
 
         if closest_edge == distance_past_bottom_edge:
-            return "lower_wall_collide"
+            return "lower_wall_collide", brick_color
         if closest_edge == distance_past_top_edge:
-            return "upper_wall_collide"
+            return "upper_wall_collide", brick_color
         if closest_edge == distance_past_left_edge:
-            return "left_wall_collide"
-        return "right_wall_collide"
+            return "left_wall_collide", brick_color
+        if closest_edge == distance_past_right_edge:
+            return "right_wall_collide", brick_color
 
+        return None, None
 
 

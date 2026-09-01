@@ -1,7 +1,8 @@
 from turtle import  Turtle
 
 TOTAL_LEFT = 2
-
+CURRENT_SCORE = 0
+LEVEL = 0
 HORIZONTAL_LINE_AXIS = (-460,300)
 
 class Score:
@@ -10,6 +11,10 @@ class Score:
 
         self.horizontal_line = Turtle("square")
 
+        self.pen = Turtle()
+        self.score = Turtle()
+        self.restart = Turtle()
+        self.game_over = Turtle()
 
         self.right_score = 0
         self.left_score = 0
@@ -31,8 +36,7 @@ class Score:
 
 
     def user_life_UI(self):
-
-
+        """this method create user left life UI on the screen"""
 
         for ball in range(0, 3):
 
@@ -54,13 +58,88 @@ class Score:
 
 
     def decrease_user_life(self, ball):
+        """this method decrease user life if user misses the ball to be touched with paddle"""
 
         global TOTAL_LEFT
 
         for  index, life_lost in enumerate(reversed(self.life_list_list)):
 
             if index == TOTAL_LEFT:
-                self.life_list_list[index].fillcolor("black")
+                life_lost.fillcolor("black")
                 TOTAL_LEFT -= 1
                 ball.goto(0, 0)
                 break
+
+        if TOTAL_LEFT == -1:
+
+            self.game_over.color("white")
+            self.game_over.penup()
+            self.game_over.goto(0,0)
+            self.game_over.write("Game Over!", align= "center", font = ("Arial", 24, "bold"))
+            self.game_over.hideturtle()
+            ball.hideturtle()
+            self.create_restart_instruction_UI()
+
+
+    def create_score_board(self):
+        """this method create score card in the UI."""
+
+        self.pen.color("white")
+        self.pen.penup()
+        self.pen.goto(340, 315)
+        self.pen.write(f"Highest Score: {CURRENT_SCORE}", align="center", font=("Arial", 13, "bold"))
+        self.pen.hideturtle()
+
+        self.pen.color("white")
+        self.pen.penup()
+        self.pen.goto(170, 315)
+        self.pen.write(f"Highest Level: ", align="center", font=("Arial", 13, "bold"))
+        self.pen.hideturtle()
+
+        self.pen.color("white")
+        self.pen.penup()
+        self.pen.goto(-340, 315)
+        self.pen.write(f"Current Level: ", align="center", font=("Arial", 13, "bold"))
+        self.pen.hideturtle()
+
+        self.pen.color("white")
+        self.pen.penup()
+        self.pen.goto(-170, 315)
+        self.pen.write(f"Current Score ", align="center", font=("Arial", 13, "bold"))
+        self.pen.hideturtle()
+
+    def increase_current_score(self, score_value):
+
+        global CURRENT_SCORE
+        CURRENT_SCORE += score_value
+
+        self.pen.clear()
+        self.create_score_board()
+
+
+    def create_restart_instruction_UI(self):
+
+        self.restart.color("white")
+        self.restart.penup()
+        self.restart.goto(0, -30)
+        self.restart.write(f"Press R to restart!, or E to Exit Game!", align="center", font=("Arial", 16, "bold"))
+        self.restart.hideturtle()
+
+    def restart_game(self, ball_obj, broke_brick_dict):
+        """Initialize or reset all game variables and characters here."""
+
+        global TOTAL_LEFT
+        TOTAL_LEFT = 2
+
+        self.game_over.clear()
+        self.restart.clear()
+
+        ball_obj.ball.goto(0, 0)
+        ball_obj.ball.showturtle()
+
+        for brick, (xcor, ycor) in broke_brick_dict.items():
+            brick.goto(xcor, ycor)
+
+
+
+
