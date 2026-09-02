@@ -108,6 +108,7 @@ class Score:
         self.pen.hideturtle()
 
     def increase_current_score(self, score_value):
+        """this method will increase the user current game score."""
 
         global CURRENT_SCORE
         CURRENT_SCORE += score_value
@@ -117,6 +118,7 @@ class Score:
 
 
     def create_restart_instruction_UI(self):
+        """this method will show the UI to user for restarting or exiting a game."""
 
         self.restart.color("white")
         self.restart.penup()
@@ -148,7 +150,7 @@ class Score:
 
 
     def create_json_file(self):
-
+        """this method create json file when program is being runned first time"""
 
         if not os.path.exists(file_name):
 
@@ -158,6 +160,7 @@ class Score:
 
 
     def check_highest_score(self):
+        """this method will check the previous highest score with the current game score and update the highest score if current score is greater than previous highest score"""
 
         global CURRENT_SCORE
         with open(file_name, "r") as file:
@@ -177,3 +180,5 @@ class Score:
 
         else:
             CURRENT_SCORE = 0
+
+

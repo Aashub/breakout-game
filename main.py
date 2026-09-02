@@ -11,7 +11,7 @@ BALL_HEADING = random.randint(210, 330)
 BALL_WIDTH, BALL_HEIGHT = 1, 1
 BALL_DIAMETER = (BALL_WIDTH * 10) + (BALL_HEIGHT * 10)
 broke_brick_dict = {}
-
+GAME_ON = True
 
 color_score_dict = {
 
@@ -56,6 +56,7 @@ screen_object.listen()
 screen_object.onkey(fun=paddle_object.paddle_right_movement, key="Right")
 screen_object.onkey(fun=paddle_object.paddle_left_movement, key="Left")
 
+
 score.create_json_file()
 screen_object.onkey(fun= lambda: score.restart_game(ball_object, broke_brick_dict) , key = "r")
 
@@ -71,13 +72,21 @@ def update_score(brick_clr):
         else:
             pass
 
+def exit_game():
+    global GAME_ON
+    GAME_ON = False
 
-
-is_game_on = True
 
 paddle_x_cor = paddle_object.paddle.xcor() + 30
 paddle_y_cor = paddle_object.paddle.ycor() + 15
-while is_game_on:
+
+while GAME_ON:
+
+    screen_object.onkey(fun=exit_game, key="e")
+
+    if GAME_ON == False:
+        break
+
 
     ball_x_cor, ball_y_cor = ball_object.ball_movement(BALL_HEADING)
 
@@ -103,7 +112,9 @@ while is_game_on:
         BALL_HEADING = new_heading
         ball_object.ball_hit = True
 
-    elif ball_y_cor <= paddle_y_cor:
+    elif ball_y_cor <= paddle_y_cor and ball_y_cor <= -340:
+        # this condition will check that ball is being missed by paddle or not if it is missed than this condition became true.
+
         score.decrease_user_life(ball_object.ball)
         new_random_heading  = random.randint(210, 330)
         BALL_HEADING = new_random_heading
@@ -151,4 +162,4 @@ while is_game_on:
 
     screen_object.update()
 
-screen_object.exitonclick()
+screen_object.bye()
