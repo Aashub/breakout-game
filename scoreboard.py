@@ -5,7 +5,6 @@ import os
 file_name = "data.json"
 TOTAL_LEFT = 2
 CURRENT_SCORE = 0
-LEVEL = 0
 HORIZONTAL_LINE_AXIS = (-460,300)
 
 class Score:
