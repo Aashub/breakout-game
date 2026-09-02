@@ -56,6 +56,7 @@ screen_object.listen()
 screen_object.onkey(fun=paddle_object.paddle_right_movement, key="Right")
 screen_object.onkey(fun=paddle_object.paddle_left_movement, key="Left")
 
+score.create_json_file()
 screen_object.onkey(fun= lambda: score.restart_game(ball_object, broke_brick_dict) , key = "r")
 
 

@@ -1,5 +1,8 @@
+import json
 from turtle import  Turtle
+import os
 
+file_name = "data.json"
 TOTAL_LEFT = 2
 CURRENT_SCORE = 0
 LEVEL = 0
@@ -87,7 +90,15 @@ class Score:
         self.pen.color("white")
         self.pen.penup()
         self.pen.goto(250, 315)
-        self.pen.write(f"Highest Score: {CURRENT_SCORE}", align="center", font=("Arial", 13, "bold"))
+
+        if not os.path.exists(file_name):
+            highest_score = 0
+        else:
+            with open(file_name, "r") as file:
+                data = json.load(file)
+            highest_score = data["highest_score"]
+
+        self.pen.write(f"Highest Score: {highest_score}", align="center", font=("Arial", 13, "bold"))
         self.pen.hideturtle()
 
         self.pen.color("white")
@@ -133,4 +144,36 @@ class Score:
         for life in self.life_list_list:
             life.fillcolor("white")
 
+        self.check_highest_score()
 
+
+    def create_json_file(self):
+
+
+        if not os.path.exists(file_name):
+
+            data = {"highest_score": 0}
+            with open(file_name, "w") as file:
+                json.dump(data, file)
+
+
+    def check_highest_score(self):
+
+        global CURRENT_SCORE
+        with open(file_name, "r") as file:
+            data = json.load(file)
+
+        previous_highest_score = data["highest_score"]
+
+        if CURRENT_SCORE > previous_highest_score:
+
+            data.update({'highest_score': CURRENT_SCORE})
+            with open("data.json", "w") as file:
+                json.dump(data, file)
+
+            CURRENT_SCORE = 0
+            self.pen.clear()
+            self.create_score_board()
+
+        else:
+            CURRENT_SCORE = 0
